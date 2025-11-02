@@ -1,9 +1,10 @@
 const express = require("express");
 const dotenv = require("dotenv");
 dotenv.config();
-const PORT = process.env.PORT
+const PORT = process.env.PORT;
 
 const app = express();
+const patientsRoutes = require("./routers/patient.routes");
 const drugsRoutes = require("./routers/drugs.routes");
 
 app.use(express.json());
@@ -11,12 +12,12 @@ app.get("/", (req, res) => {
   res.json({ message: "Server is live..." });
 });
 
+app.use("/patients", patientsRoutes);
 app.use("/drugs", drugsRoutes);
 
 app.listen(PORT, () => {
   console.log(`serve on http://localhost:${PORT}`);
 });
-
 
 //step1 : npm i @prisma/client
 //step2 : npm i prisma -D
@@ -24,4 +25,3 @@ app.listen(PORT, () => {
 //step4 : get tables form chatgpt to put them on prisma/schema.prisma
 //step5 : npx prisma db push
 //optional : npx prisma studio
-
